@@ -1,0 +1,86 @@
+---
+- name: Login with credentials once and register the result
+  lucasheld.uptime_kuma.login:
+    api_url: "{{ kumahost }}"
+    api_username: "{{ kumauser }}"
+    api_password: "{{ kumapass }}"
+  register: result
+
+- name: Extract the token from the result and set it as fact
+  set_fact:
+    api_token: "{{ result.token }}"
+
+- name: cozybear.dev (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: cozybear.dev (clearnet)
+    type: http
+    url: https://cozybear.dev
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+
+- name: cozybear.dev (onion)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: cozybear.dev (onion)
+    type: http
+    url: http://cozybearcxbg4bj72zuqntwm4eqdllu6lr7kkzu3iurnubmwerta4uid.onion
+    proxyId: 1
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+
+# - name: bitcoin node (onion)
+#   lucasheld.uptime_kuma.monitor:
+#     api_url: "{{ kumahost }}"
+#     api_token: "{{ api_token }}"
+#     name: bitcoin node (onion)
+#     type: port
+#     hostname: .onion
+#     port: 8883
+#     proxyId: 1
+#     maxretries: 3
+#     notification_names: Telegram
+#     state: present
+
+- name: tor nodes (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: tor node {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node{{ item }}.shadowbrokers.eu"
+    port: 443
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=1 end=19
+
+- name: tor description errors
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: tor description errors (clearnet)
+    type: keyword
+    url: https://onionoo.torproject.org/details?search=cozybear
+    keyword: '"running":false'
+    upsideDown: true
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+
+- name: tor description overloaded
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: tor description overloaded (clearnet)
+    type: keyword
+    url: https://onionoo.torproject.org/details?search=cozybear
+    keyword: overload_general_timestamp
+    upsideDown: true
+    maxretries: 3
+    notification_names: Telegram
+    state: present

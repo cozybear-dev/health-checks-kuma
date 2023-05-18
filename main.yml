@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    kumahost: http://192.168.178.136:3001
+    kumauser: admin
+    kumapass: "{{ lookup('community.general.bitwarden', 'kuma-pass', field='password')[0] }}"
+  roles:
+    - checks
