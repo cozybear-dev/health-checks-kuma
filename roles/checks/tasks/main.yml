@@ -29,7 +29,7 @@
     type: http
     url: http://cozybearcxbg4bj72zuqntwm4eqdllu6lr7kkzu3iurnubmwerta4uid.onion
     proxyId: 1
-    maxretries: 3
+    maxretries: 10
     notification_names: Telegram
     state: present
 
@@ -45,6 +45,8 @@
 #     maxretries: 3
 #     notification_names: Telegram
 #     state: present
+# TCP check does not support socks proxies. Ended up using; https://bitnodes.io/nodes/bitcoin2i4mexga4jsklakoauigyvu23flvvqubvruinpxrk4fxkmqyd.onion-8333/
+# https://github.com/louislam/uptime-kuma/issues/1949
 
 - name: tor nodes (clearnet)
   lucasheld.uptime_kuma.monitor:
@@ -84,3 +86,15 @@
     maxretries: 3
     notification_names: Telegram
     state: present
+
+- name: cronitor heartbeat (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: cronitor heartbeat (clearnet)
+    type: http
+    url: https://cronitor.link/p/734fa9f17b2247ea83ff6a2469d08004/8R2pVD
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+    
