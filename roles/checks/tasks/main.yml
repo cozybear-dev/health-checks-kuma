@@ -29,7 +29,7 @@
     type: http
     url: http://cozybearcxbg4bj72zuqntwm4eqdllu6lr7kkzu3iurnubmwerta4uid.onion
     proxyId: 1
-    maxretries: 10
+    maxretries: 30
     notification_names: Telegram
     state: present
 
