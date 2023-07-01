@@ -59,7 +59,7 @@
     maxretries: 3
     notification_names: Telegram
     state: present
-  with_sequence: start=1 end=19
+  with_sequence: start=1 end=24
 
 - name: tor description errors
   lucasheld.uptime_kuma.monitor:
