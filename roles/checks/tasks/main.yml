@@ -10,6 +10,28 @@
   set_fact:
     api_token: "{{ result.token }}"
 
+- name: vault.cozybear.dev (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: vault.cozybear.dev (clearnet)
+    type: http
+    url: https://vault.cozybear.dev
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+
+- name: deathstar.cozybear.dev (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: deathstar.cozybear.dev (clearnet)
+    type: http
+    url: https://deathstar.cozybear.dev
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+
 - name: cozybear.dev (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
@@ -59,7 +81,7 @@
     maxretries: 3
     notification_names: Telegram
     state: present
-  with_sequence: start=1 end=24
+  with_sequence: start=1 end=25
 
 - name: tor description errors
   lucasheld.uptime_kuma.monitor:
