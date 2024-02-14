@@ -10,6 +10,19 @@
   set_fact:
     api_token: "{{ result.token }}"
 
+- name: tor nodes (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    name: tor node {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node{{ item }}.shadowbrokers.eu"
+    port: 443
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=1 end=29
+
 - name: vault.cozybear.dev (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
@@ -69,19 +82,6 @@
 #     state: present
 # TCP check does not support socks proxies. Ended up using; https://bitnodes.io/nodes/bitcoin2i4mexga4jsklakoauigyvu23flvvqubvruinpxrk4fxkmqyd.onion-8333/
 # https://github.com/louislam/uptime-kuma/issues/1949
-
-- name: tor nodes (clearnet)
-  lucasheld.uptime_kuma.monitor:
-    api_url: "{{ kumahost }}"
-    api_token: "{{ api_token }}"
-    name: tor node {{ item }} (clearnet)
-    type: port
-    hostname: "tor.node{{ item }}.shadowbrokers.eu"
-    port: 443
-    maxretries: 3
-    notification_names: Telegram
-    state: present
-  with_sequence: start=1 end=26
 
 - name: tor description errors
   lucasheld.uptime_kuma.monitor:
