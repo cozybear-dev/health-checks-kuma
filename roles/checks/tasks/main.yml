@@ -4,6 +4,7 @@
     api_url: "{{ kumahost }}"
     api_username: "{{ kumauser }}"
     api_password: "{{ kumapass }}"
+    api_timeout: 120
   register: result
 
 - name: Extract the token from the result and set it as fact
@@ -14,6 +15,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: tor node {{ item }} (clearnet)
     type: port
     hostname: "tor.node{{ item }}.shadowbrokers.eu"
@@ -21,12 +23,13 @@
     maxretries: 3
     notification_names: Telegram
     state: present
-  with_sequence: start=1 end=29
+  with_sequence: start=1 end=32
 
 - name: vault.cozybear.dev (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: vault.cozybear.dev (clearnet)
     type: http
     url: https://vault.cozybear.dev
@@ -38,6 +41,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: deathstar.cozybear.dev (clearnet)
     type: http
     url: https://deathstar.cozybear.dev
@@ -49,6 +53,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: cozybear.dev (clearnet)
     type: http
     url: https://cozybear.dev
@@ -60,6 +65,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: cozybear.dev (onion)
     type: http
     url: http://cozybearcxbg4bj72zuqntwm4eqdllu6lr7kkzu3iurnubmwerta4uid.onion
@@ -87,6 +93,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: tor description errors (clearnet)
     type: keyword
     url: https://onionoo.torproject.org/details?search=cozybear
@@ -100,6 +107,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: tor description overloaded (clearnet)
     type: keyword
     url: https://onionoo.torproject.org/details?search=cozybear
@@ -113,6 +121,7 @@
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
+    api_timeout: 120
     name: cronitor heartbeat (clearnet)
     type: http
     url: https://cronitor.link/p/734fa9f17b2247ea83ff6a2469d08004/8R2pVD
