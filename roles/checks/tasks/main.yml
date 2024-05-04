@@ -23,7 +23,7 @@
     maxretries: 3
     notification_names: Telegram
     state: present
-  with_sequence: start=1 end=32
+  with_sequence: start=1 end=33
 
 - name: vault.cozybear.dev (clearnet)
   lucasheld.uptime_kuma.monitor:
