@@ -30,14 +30,42 @@
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
     api_timeout: 120
-    name: tor node {{ item }} (clearnet)
+    name: tor node pfcloud dedi {{ item }} (clearnet)
     type: port
-    hostname: "tor.node{{ item }}.shadowbrokers.eu"
-    port: "{{ 10000 + (item | int) - 8 }}"
+    hostname: "tor.node8.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
     maxretries: 3
     notification_names: Telegram
     state: present
-  with_sequence: start=20 end=25
+  with_sequence: start=0 end=7
+
+- name: tor nodes (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    api_timeout: 120
+    name: tor node pfcloud dedi {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node16.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=8 end=15
+
+- name: tor nodes (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    api_timeout: 120
+    name: tor node pfcloud dedi {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node24.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=16 end=23
 
 - name: vault.cozybear.dev (clearnet)
   lucasheld.uptime_kuma.monitor:
