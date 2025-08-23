@@ -25,7 +25,7 @@
     state: present
   with_sequence: start=1 end=7
 
-- name: tor nodes (clearnet)
+- name: tor nodes pfcloud dedi (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
@@ -39,7 +39,7 @@
     state: present
   with_sequence: start=0 end=7
 
-- name: tor nodes (clearnet)
+- name: tor nodes pfcloud dedi (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
@@ -53,7 +53,7 @@
     state: present
   with_sequence: start=8 end=15
 
-- name: tor nodes (clearnet)
+- name: tor nodes pfcloud dedi (clearnet)
   lucasheld.uptime_kuma.monitor:
     api_url: "{{ kumahost }}"
     api_token: "{{ api_token }}"
@@ -61,6 +61,48 @@
     name: tor node pfcloud dedi {{ item }} (clearnet)
     type: port
     hostname: "tor.node24.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=16 end=23
+
+- name: tor nodes colocatel dedi (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    api_timeout: 120
+    name: tor node colocatel dedi {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node32.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=0 end=7
+
+- name: tor nodes colocatel dedi (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    api_timeout: 120
+    name: tor node colocatel dedi {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node40.shadowbrokers.eu"
+    port: "{{ 10000 + (item | int) }}"
+    maxretries: 3
+    notification_names: Telegram
+    state: present
+  with_sequence: start=8 end=15
+
+- name: tor nodes colocatel dedi (clearnet)
+  lucasheld.uptime_kuma.monitor:
+    api_url: "{{ kumahost }}"
+    api_token: "{{ api_token }}"
+    api_timeout: 120
+    name: tor node colocatel dedi {{ item }} (clearnet)
+    type: port
+    hostname: "tor.node48.shadowbrokers.eu"
     port: "{{ 10000 + (item | int) }}"
     maxretries: 3
     notification_names: Telegram
